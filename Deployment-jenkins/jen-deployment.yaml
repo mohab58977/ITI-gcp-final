@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jenkins
+  namespace: ops
 spec:
   replicas: 1
   selector:
@@ -12,10 +13,14 @@ spec:
       labels:
         app: jenkins
     spec:
+      securityContext: 
+        runAsUser: 0 
+        runAsGroup: 0 
+        fsGroup: 0 
       serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
-          image: hassnzax/build:latest
+          image: jenkins/jenkins:lts
           ports:
             - name: httpport
               containerPort: 8080
@@ -40,14 +45,14 @@ spec:
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home
-            - name: docker-daemon-volume
-              mountPath: /var/run/docker.sock
+            # - name: docker-daemon-volume
+            #   mountPath: /var/run/docker.sock
 
       volumes:
         - name: jenkins-data
           persistentVolumeClaim:
               claimName: my-pvc
 
-        - name: docker-daemon-volume
-          hostPath:
-            path: /var/run/docker.sock
+        # - name: docker-daemon-volume
+        #   hostPath:
+        #     path: /var/run/docker.sock
