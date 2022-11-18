@@ -16,11 +16,7 @@ Check infrastructure section in this Repo : https://github.com/mohab58977/challe
 
 #### Jenkins :
 
-
   - Create CICD pipeline to build and push the image of our app & deploy  on GKE cluster.
-
-
-
 
 ##  docker file
 
@@ -36,18 +32,13 @@ Check infrastructure section in this Repo : https://github.com/mohab58977/challe
 
 ## Jenkinsfile
 
-1- "CI" stage in the Pipeline will ( clone the github repo & build helloWorldapp image & push image to dockerhub ) "Pipeline will run on Jenkins Slave Pod"
+1- "CI" stage in the Pipeline will ( clone the github repo & build app image & push image to dockerhub ) "Pipeline will run on Jenkins Slave Pod"
 
-![image](https://drive.google.com/uc?export=view&id=1AuAiGGQoVYy-YoCtOOphQoJ-FgRpz65k)
 
 2- "CD" stage in the Pipeline will ( authenticate access to the cluster using Service account which is created with terraform in the infra section & gcloud auth command )
    I added a new credentials "secret file" in jenkins which contains Service account '.json key'
 
 
-
-
-
-
 ## Feedback
 
-If you have any feedback, please reach out to me at ahmed.ali.elbaz.mohamed@gmail.com
+If you have any feedback, please reach out to me at mohab5897@gmail.com
