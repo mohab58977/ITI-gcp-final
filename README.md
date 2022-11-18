@@ -1,7 +1,6 @@
 
 # CICD Pipeline
 
-![image](https://drive.google.com/uc?export=view&id=1qQR7wPd1ZI1MnPZbarEP8g6wJEgf2-mH)
 ## Demo
 
 This Repo contains Infrastructure section of the CICD Pipeline project I'm gonna explain CICD stage.
