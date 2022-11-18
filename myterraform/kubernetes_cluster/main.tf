@@ -85,9 +85,9 @@ resource "google_project_iam_binding" "gke-sa-binding" {
   members = ["serviceAccount:${google_service_account.gke-sa.email}"]
 
 }
-resource "google_project_iam_binding" "gke-sa-binding2" {
-  project = "project-for-mohab"
-  role    = "roles/container.admin"
-  members = ["serviceAccount:${google_service_account.gke-sa.email}"]
+# resource "google_project_iam_binding" "gke-sa-binding2" {
+#   project = "project-for-mohab"
+#   role    = "roles/container.admin"
+#   members = ["serviceAccount:${google_service_account.gke-sa.email}"]
 
-}
+# }
