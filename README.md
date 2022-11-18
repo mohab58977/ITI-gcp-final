@@ -32,11 +32,6 @@ Check infrastructure section in this Repo : https://github.com/mohab58977/challe
 
 - I will create 2 deployment files (app.yaml & service.yaml & prodns.yaml) Jenkins will deploy these files on GKE cluster
 
-![image](https://drive.google.com/uc?export=view&id=1EvRWeop1S9Sv0S7yPU0UM-B9t9va0H0Y)
-
-![image](https://drive.google.com/uc?export=view&id=1dkauO-iPWkvDX39EraN_lSiti9swX9Kz)
-
-![image](https://drive.google.com/uc?export=view&id=1lYZzIQgIJDpWG20skXmkZEeZDCtcO6FT)
 
 
 ## Jenkinsfile
@@ -48,7 +43,7 @@ Check infrastructure section in this Repo : https://github.com/mohab58977/challe
 2- "CD" stage in the Pipeline will ( authenticate access to the cluster using Service account which is created with terraform in the infra section & gcloud auth command )
    I added a new credentials "secret file" in jenkins which contains Service account '.json key'
 
-![image](https://drive.google.com/uc?export=view&id=18cp-nRc0sey3fRR_YJF4VIwQbtkCHFbf)
+
 
 
 
