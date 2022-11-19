@@ -1,13 +1,21 @@
 
 # CICD Pipeline
+ ## the project consists of :
+ - a Google Cloud Platform Infrastructure 
+ - Google Kubernetes Engine
+ - Jenkins nodes master and slave on kubernetes
+ - 2 branch git repo application master and dev
+ - Multi branch pipeline
+ ##  idea and automation :
+ -terraform is used to spin up a fully private infrastructure with Google kubernetes engine on Google Cloud, then a bastion host is used to connect to kubernetes engine and deploy jenkins master and slave, after that jenkins multibranch pipeline is used, the 1st branch "master" is used to create an application image from a dockerfile that is present on the app git repo, after that, the 2nd branch is used to deploy the last image created by 1st branch on the same kubernetes cluster on GCP.
 
 ## Demo
 
-This Repo contains Infrastructure section of the CICD Pipeline project I'm gonna explain CICD stage.
+This Repo contains Infrastructure section of the CICD Pipeline project.
 
 Check App & pipeline section in this Repo : https://github.com/mohab58977/challenge-iti
  
-
+ 
 ## Tools & Plugins
 
 
@@ -19,13 +27,13 @@ Check App & pipeline section in this Repo : https://github.com/mohab58977/challe
 
 ##  docker file
 
-1- I will create a docker file to create an image from app (Jenkins will build and push this image to dockerhub)
+- docker file to create an image from app (Jenkins will build and push this image to dockerhub)
 
 
 
 ## Deployment files
 
-- I will create 2 deployment files (app.yaml & service.yaml & prodns.yaml) Jenkins will deploy these files on GKE cluster
+- Ideployment files (deploy.yaml & service.yaml) Jenkins will deploy these files on GKE cluster
 
 
 
