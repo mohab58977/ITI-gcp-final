@@ -1,12 +1,10 @@
 - ### deploying on the GKE node , we used the bastion to access the k8s cluster
 - ### jen-deployment.yaml file has a jenkins container image runs on the private cluster
-- ### load balancer service to acces the private pod
+- ### load balancer service to access deployment
 - ### persistent volume to keep the data saved even if the pod destroyed
 - ### service account is made for pods to make them able to manipulate cluster objects
 ```bash
 mohab@bastion-instance:~$ kubectl get all
-W0802 23:35:59.693412   29390 gcp.go:120] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
-To learn more, consult https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
 NAME                          READY   STATUS    RESTARTS   AGE
 pod/jenkins-75547b7d5-6prjj   1/1     Running   0          7h31m
 
