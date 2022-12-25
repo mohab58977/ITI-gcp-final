@@ -13,7 +13,9 @@
 
 This Repo contains Infrastructure section of the CICD Pipeline project.
 
-Check App & pipeline section in this Repo : https://github.com/mohab58977/challenge-iti
+
+
+this Repo : https://github.com/mohab58977/react-task contains Application, Dockerfile, Jenkinsfile
  
  
 ## Tools & Plugins

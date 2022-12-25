@@ -38,6 +38,7 @@ module "google_kubernetes_cluster" {
 
   project_id                 = var.project_id
   region                     = var.region
+  main_zone                  = var.main_zone
   node_zones                 = var.cluster_node_zones
   network_name               = module.google_networks.network.name
   subnet_name                = module.google_networks.subnet.name

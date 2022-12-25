@@ -7,6 +7,10 @@ variable "region" {
   type = string
   description = "The region to use"
 }
+variable "main_zone" {
+  type = string
+  description = "The zone to use"
+}
 
 variable "node_zones" {
   type = list(string)

@@ -2,7 +2,7 @@
 
 resource "google_container_cluster" "app_cluster" {
   name     = "app-cluster"
-  location = var.region
+  location = var.main_zone
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
@@ -51,6 +51,7 @@ resource "google_container_node_pool" "app_cluster_linux_node_pool" {
 
   node_config {
     machine_type    = "e2-medium"
+
     service_account = google_service_account.gke-sa.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/devstorage.read_only",
@@ -80,13 +81,13 @@ resource "google_service_account" "gke-sa" {
 }
 
 resource "google_project_iam_binding" "gke-sa-binding" {
-  project = "project-for-mohab"
+  project = var.project_id
   role    = "roles/storage.admin"
   members = ["serviceAccount:${google_service_account.gke-sa.email}"]
 
 }
 # resource "google_project_iam_binding" "gke-sa-binding2" {
-#   project = "project-for-mohab"
+#   project = var.project_id
 #   role    = "roles/container.admin"
 #   members = ["serviceAccount:${google_service_account.gke-sa.email}"]
 

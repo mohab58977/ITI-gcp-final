@@ -9,14 +9,14 @@ resource "google_service_account" "manage-sa" {
   display_name = "GKE Bastion Service Account"
 }
 resource "google_project_iam_binding" "manage-sa-binding" {
-  project = "project-for-mohab"
+  project = var.project_id
   role    = "roles/storage.admin"
   members = ["serviceAccount:${google_service_account.manage-sa.email}"]
 
 }
 
 resource "google_project_iam_binding" "manage-sa-bindig-2" {
-  project = "project-for-mohab"
+  project = var.project_id
   role    = "roles/container.admin"
   members = ["serviceAccount:${google_service_account.manage-sa.email}"]
 
@@ -29,7 +29,7 @@ resource "google_compute_firewall" "bastion-ssh" {
   network       = var.network_name
   direction     = "INGRESS"
   project       = var.project_id
-  source_ranges = ["0.0.0.0/0"] // TODO: Restrict further.
+  source_ranges = ["35.235.240.0/20"] // TODO: Restrict further.
 
   allow {
     protocol = "tcp"
@@ -43,9 +43,30 @@ resource "google_compute_firewall" "bastion-ssh" {
 data "template_file" "startup_script" {
   template = <<-EOF
   sudo apt-get update -y
-  sudo apt-get install -y tinyproxy
   sudo apt-get install -y kubectl
   sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+  export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+  sudo -i
+  apt update &&  apt -y upgrade &&  apt install -y curl
+  apt-get update &&  apt-get install -y lsb-release
+  curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
+  https://download.docker.com/linux/debian/gpg
+  echo "deb [arch=$(dpkg --print-architecture) \
+  signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
+  https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+  apt-get update &&  apt-get install -y docker-ce-cli docker-ce
+
+  curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | \
+  tee /usr/share/keyrings/helm.gpg > /dev/null
+  apt-get install apt-transport-https --yes
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] \
+  https://baltocdn.com/helm/stable/debian/ all main" | \
+  tee /etc/apt/sources.list.d/helm-stable-debian.list 
+  apt-get update && apt-get install helm
+  exit
+  helm repo add my-repo https://charts.bitnami.com/bitnami
+  helm install my-release   --set jenkinsUser=admin   --set jenkinsPassword=password   my-repo/jenkins
   EOF
 }
 
@@ -58,6 +79,7 @@ resource "google_compute_instance" "bastion" {
   zone         = var.zone
   project      = var.project_id
   tags         = ["bastion"]
+
 
 
   boot_disk {
